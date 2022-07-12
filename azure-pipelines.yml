@@ -22,11 +22,13 @@ steps:
     goals: 'package'
 
 - task: CopyFiles@2
+  displayName: ' Copy Files from: $(Build.SourcesDirectory)  to: $(Build.ArtifactStagingDirectory)'
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '**/$(BuildConfiguration)/**/?(*.war)'
+    contents: '**/*.war'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishBuildArtifacts@1
+  displayName: ' Publish artifact to azure pipeline from: $(Build.ArtifactStagingDirectory)'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'app_war'
